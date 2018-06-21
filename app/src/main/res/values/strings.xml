@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">나만의 다이어리</string>
+    <string name="login_activity">로그인</string>
+    <string name="register_activity">회원가입</string>
+</resources>
