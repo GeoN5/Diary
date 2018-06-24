@@ -1,6 +1,7 @@
 package com.example.geonho.retorfitkotlin
 
 import android.app.Activity
+import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
@@ -101,12 +102,11 @@ class RegisterActivity : AppCompatActivity(),EasyPermissions.PermissionCallbacks
                 }
             })
         } else {
-            var builder: AlertDialog.Builder = AlertDialog.Builder(applicationContext)
-                    .setTitle("경고").setMessage("비밀번호를 확인해주세요!").setPositiveButton("확인", null)
+            var builder: AlertDialog.Builder = AlertDialog.Builder(this)
+                    .setTitle("경고").setMessage("입력하신 비밀번호를 확인해주세요!").setPositiveButton("확인", DialogInterface.OnClickListener { dialog, which ->
+                        dialog.dismiss()
+                    })
             var dialog = builder.create()
-            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
-                dialog.dismiss()
-            }
             dialog.show()
         }
     }
