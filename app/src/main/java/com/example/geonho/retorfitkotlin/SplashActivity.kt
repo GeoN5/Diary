@@ -12,7 +12,10 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 
         Handler().postDelayed({
-            startActivity(Intent(this@SplashActivity,LoginActivity::class.java))
+            if(SharedPreferenceUtil.getData(applicationContext,"token")==null){
+                startActivity(Intent(this@SplashActivity,LoginActivity::class.java))
+            }
+            startActivity(Intent(this@SplashActivity,MainActivity::class.java))
         },3000)
     }
 }
