@@ -3,6 +3,7 @@ package com.example.geonho.retorfitkotlin
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
 import android.util.Log
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_login.*
@@ -11,6 +12,9 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class LoginActivity : AppCompatActivity() {
+
+    private val FINSH_INTERVAL_TIME = 2000
+    private var backPressedTime:Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +43,7 @@ class LoginActivity : AppCompatActivity() {
                         SharedPreferenceUtil.saveData(applicationContext, "token", response.body()!!.auth.token)
                         SharedPreferenceUtil.saveData(applicationContext, "username", response.body()!!.user.username)
                         Log.d("token", SharedPreferenceUtil.getData(applicationContext, "token") + "is saved")
+                        startActivity(Intent(this@LoginActivity,MainActivity::class.java))
                     } else {
                         Toast.makeText(applicationContext, response.body()?.result?.message, Toast.LENGTH_SHORT).show()
                     }
@@ -47,4 +52,16 @@ class LoginActivity : AppCompatActivity() {
             })
         }
     }
+
+    override fun onBackPressed() {
+        var tempTime = System.currentTimeMillis()
+        var intervalTime = tempTime - backPressedTime
+        if ( 0 <= intervalTime && FINSH_INTERVAL_TIME >= intervalTime ) {
+            ActivityCompat.finishAffinity(this);
+        } else {
+            backPressedTime = tempTime;
+            Toast.makeText(applicationContext, "한번 더 누르시면 종료됩니다.",Toast.LENGTH_SHORT).show()
+        }
+    }
+
 }
