@@ -16,14 +16,9 @@ data class UserChange(val username:Username,val token:Auth)
 
 data class LoginResponse(val result: Result,val auth:Auth,val user:Username)
 
-data class Diary(var _id: String?,var title : String,var content:String ,var username : String ,var date : String?)
+data class Diary(var title : String,var content:String ,var username : String) {
+    var date : String = ""
+    var _id : String = ""
+}
 
-data class  NoidDiary(var title : String,var content:String ,var username : String ,var date : String?)
-
-data class UserAboutResponse(val result: Result,val diaries: Diary)
-
-data class IdCheckResponse(val diary: NoidDiary,val result: Result)
-
-data class Write(var title:String, var content:String,var username: String)
-
-data class WriteChange(val auth: Auth,val write: Write)
+data class DiaryListGet(val diaries : List<Diary>,var result: Result)

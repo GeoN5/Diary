@@ -93,7 +93,7 @@ class RegisterActivity : AppCompatActivity(),EasyPermissions.PermissionCallbacks
                 }
 
                 override fun onResponse(call: Call<Response>?, response: retrofit2.Response<Response>?) {
-                    if (response!!.body()!!.result.success) {
+                    if (response?.body()!=null && response!!.body()!!.result.success) {
                         Toast.makeText(applicationContext, response!!.body()!!.result.message, Toast.LENGTH_LONG).show()
                         finish()
                     } else {
