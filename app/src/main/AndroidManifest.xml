@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.geonho.retorfitkotlin">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -18,15 +18,21 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".LoginActivity"
-            android:label="@string/login_activity"/>
-
-        <activity android:name=".RegisterActivity"
-            android:label="@string/register_activity"/>
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/login_activity" />
+        <activity
+            android:name=".RegisterActivity"
+            android:label="@string/register_activity" />
+        <activity
+            android:name=".WriteActivity"
+            android:label="@string/write_activity" />
+        <activity android:name=".DetailActivity"
+            android:label="@string/detail_activity"></activity>
     </application>
 
 </manifest>

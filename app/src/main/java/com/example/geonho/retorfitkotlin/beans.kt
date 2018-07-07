@@ -21,4 +21,8 @@ data class Diary(var title : String,var content:String ,var username : String) {
     var _id : String = ""
 }
 
-data class DiaryListGet(val diaries : List<Diary>,var result: Result)
+data class DiaryListGet(val diaries : List<Diary>,val result: Result)
+
+data class DetailResponse(val diary: Diary,val result: Result)
+
+

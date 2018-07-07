@@ -1,5 +1,6 @@
 package com.example.geonho.retorfitkotlin
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
@@ -21,6 +22,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        setListener()
+        loadData()
     }
 
     fun loadData(){
@@ -30,6 +34,7 @@ class MainActivity : AppCompatActivity() {
         Call.enqueue(object : Callback<DiaryListGet>{
             override fun onFailure(call: Call<DiaryListGet>?, t: Throwable?) {
                 Log.e("Error",t!!.message)
+
             }
 
             override fun onResponse(call: Call<DiaryListGet>?, response: Response<DiaryListGet>?) {
@@ -55,6 +60,12 @@ class MainActivity : AppCompatActivity() {
         //나중에 새로 추가하고 나서 다시 원래의 화면으로 불러올때 다시 로드
         super.onResume()
         loadData()
+    }
+
+    fun setListener(){
+        fab.setOnClickListener {
+            startActivity(Intent(this@MainActivity,WriteActivity::class.java))
+        }
     }
 
     override fun onBackPressed() {
