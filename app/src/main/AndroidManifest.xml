@@ -12,9 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity" />
+        <activity android:name=".controllers.activities.MainActivity" />
         <activity
-            android:name=".SplashActivity"
+            android:name=".controllers.activities.SplashActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,16 +23,24 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name=".controllers.activities.LoginActivity"
             android:label="@string/login_activity" />
         <activity
-            android:name=".RegisterActivity"
+            android:name=".controllers.activities.RegisterActivity"
             android:label="@string/register_activity" />
         <activity
-            android:name=".WriteActivity"
+            android:name=".controllers.activities.WriteActivity"
             android:label="@string/write_activity" />
-        <activity android:name=".DetailActivity"
+        <activity android:name=".controllers.activities.DetailActivity"
             android:label="@string/detail_activity"></activity>
+
+        <activity android:name=".controllers.activities.PrefEditActivity"
+            android:label="@string/prefedit_activity"/>
+
+        <activity android:name=".controllers.activities.UpdateActivity"
+            android:label="@string/update_activity"/>
+
     </application>
+
 
 </manifest>

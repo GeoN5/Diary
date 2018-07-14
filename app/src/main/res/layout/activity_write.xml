@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="360"
-    tools:context=".WriteActivity">
+    tools:context=".controllers.activities.WriteActivity">
 
     <EditText
         android:id="@+id/editTitle"
@@ -26,7 +26,7 @@
         android:padding="10dp"
         android:hint="내용"
         android:gravity="top"
-        android:lines="20"/>
+        android:lines="40"/>
 
     <Button
         android:id="@+id/writeButton"

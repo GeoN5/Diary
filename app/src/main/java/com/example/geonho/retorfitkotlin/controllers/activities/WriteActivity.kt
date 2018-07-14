@@ -1,9 +1,10 @@
-package com.example.geonho.retorfitkotlin
+package com.example.geonho.retorfitkotlin.controllers.activities
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import com.example.geonho.retorfitkotlin.*
 import kotlinx.android.synthetic.main.activity_write.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -28,9 +29,9 @@ class WriteActivity : AppCompatActivity() {
     }
 
     fun writeData(){
-        var id : String? = SharedPreferenceUtil.getData(applicationContext,"username")
+        var id : String? = SharedPreferenceUtil.getData(applicationContext, "username")
         var diaryService : DiaryService = RetrofitUtil.getLoginRetrofit(applicationContext).create(DiaryService::class.java)
-        var diary : Diary = Diary(editTitle.text.toString(),editContent.text.toString(), id!!)
+        var diary : Diary = Diary(editTitle.text.toString(), editContent.text.toString(), id!!)
         if(id!=null){
             var call: Call<Response> = diaryService.writeDiary(diary)
             call.enqueue(object : Callback<Response>{

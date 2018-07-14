@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:weightSum="360"
-    tools:context=".DetailActivity">
+    tools:context=".controllers.activities.DetailActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="360">
     <TextView
         android:id="@+id/titleText"
         android:layout_width="match_parent"
@@ -15,6 +18,7 @@
         android:layout_weight="40"
         android:textSize="10pt"
         android:text="제목"
+        android:textColor="@android:color/black"
         android:gravity="center|left"
         android:paddingLeft="10dp"/>
 
@@ -25,6 +29,7 @@
         android:layout_weight="20"
         android:gravity="center|left"
         android:text="2018-07-08"
+        android:textColor="@android:color/black"
         android:paddingLeft="10dp"/>
 
     <View
@@ -38,10 +43,32 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="300"
+        android:scrollbars="vertical"
         android:lines="20"
         android:text="내용"
         android:gravity="top|left"
         android:padding="10dp"
+        android:textColor="@android:color/black"
         android:textSize="8pt"/>
+    </LinearLayout>
 
-</LinearLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/updateFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/ic_border_color_black_24dp"
+        android:elevation="5dp"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/deleteFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="75dp"
+        android:src="@drawable/ic_delete_black_24dp"
+        android:elevation="5dp"/>
+</FrameLayout>

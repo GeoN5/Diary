@@ -13,6 +13,8 @@ import okhttp3.RequestBody
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 fun ImageView.loadImage(url : String,context: Context){
@@ -74,5 +76,19 @@ object SharedPreferenceUtil {
         var editor : SharedPreferences.Editor = sharedPreferences.edit()
         editor.putString(key, value)
         editor.commit()
+    }
+
+}
+
+object DateUtil{
+    fun formatDate(dateData : String):String{
+        //JS날짜 포맷 형식객체를 만듬.
+        val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX")
+        //인자를 형변환해서 java Date 객체로 받음.
+        var date : Date = inputFormat.parse(dateData)
+        //바꿀 포맷 형식으로 객체 생성.
+        var simpleDataFormat : SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        //바꿔서 리턴.
+        return simpleDataFormat.format(date)
     }
 }

@@ -1,4 +1,4 @@
-package com.example.geonho.retorfitkotlin
+package com.example.geonho.retorfitkotlin.controllers.activities
 
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.util.Log
 import android.widget.Toast
+import com.example.geonho.retorfitkotlin.*
 import kotlinx.android.synthetic.main.activity_login.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -43,7 +44,7 @@ class LoginActivity : AppCompatActivity() {
                         SharedPreferenceUtil.saveData(applicationContext, "token", response.body()!!.auth.token)
                         SharedPreferenceUtil.saveData(applicationContext, "username", response.body()!!.user.username)
                         Log.d("token", SharedPreferenceUtil.getData(applicationContext, "token") + "is saved")
-                        startActivity(Intent(this@LoginActivity,MainActivity::class.java))
+                        startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                     } else {
                         Toast.makeText(applicationContext, response.body()?.result?.message, Toast.LENGTH_SHORT).show()
                     }

@@ -1,4 +1,4 @@
-package com.example.geonho.retorfitkotlin
+package com.example.geonho.retorfitkotlin.controllers.activities
 
 import android.app.Activity
 import android.content.DialogInterface
@@ -10,6 +10,7 @@ import android.provider.MediaStore
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AlertDialog
 import android.widget.Toast
+import com.example.geonho.retorfitkotlin.*
 import kotlinx.android.synthetic.main.activity_register.*
 import pub.devrel.easypermissions.EasyPermissions
 import retrofit2.Call

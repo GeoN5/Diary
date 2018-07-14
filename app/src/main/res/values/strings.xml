@@ -4,4 +4,6 @@
     <string name="register_activity">회원가입</string>
     <string name="write_activity">작성</string>
     <string name="detail_activity">상세화면</string>
+    <string name="prefedit_activity">설정</string>
+    <string name="update_activity">수정</string>
 </resources>
