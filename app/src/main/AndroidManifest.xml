@@ -12,7 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".controllers.activities.MainActivity" />
+        <activity
+            android:name=".controllers.activities.NavigationActivity"
+            android:label="@string/main_activity" />
         <activity
             android:name=".controllers.activities.SplashActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
@@ -31,16 +33,22 @@
         <activity
             android:name=".controllers.activities.WriteActivity"
             android:label="@string/write_activity" />
-        <activity android:name=".controllers.activities.DetailActivity"
-            android:label="@string/detail_activity"></activity>
-
-        <activity android:name=".controllers.activities.PrefEditActivity"
-            android:label="@string/prefedit_activity"/>
-
-        <activity android:name=".controllers.activities.UpdateActivity"
-            android:label="@string/update_activity"/>
-
+        <activity
+            android:name=".controllers.activities.DetailActivity"
+            android:label="@string/detail_activity" />
+        <activity
+            android:name=".controllers.activities.PrefEditActivity"
+            android:label="@string/prefedit_activity" />
+        <activity
+            android:name=".controllers.activities.UpdateActivity"
+            android:label="@string/update_activity" />
+        <activity
+            android:name=".controllers.activities.UserActivity"
+            android:label="@string/user_activity" />
+        <activity
+            android:name=".controllers.activities.MainActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
-
 
 </manifest>

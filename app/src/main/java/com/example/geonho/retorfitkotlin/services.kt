@@ -18,6 +18,10 @@ interface UserService{
     @DELETE("/users/{userName}")//계정삭제
     fun delete(@Path("userName")userName: String) : Call<Response>
 
+    @Multipart
+    @PUT("/users/{userName}")//정보 수정
+    fun modifyUser(@Path("userName")userName: String,@Part("data")user:User,@Part profile: MultipartBody.Part):Call<UserEditResponse>
+
 }
 
 interface DiaryService{

@@ -2,8 +2,20 @@
     <string name="app_name">나만의 다이어리</string>
     <string name="login_activity">로그인</string>
     <string name="register_activity">회원가입</string>
+    <string name="main_activity">메인화면</string>
     <string name="write_activity">작성</string>
     <string name="detail_activity">상세화면</string>
     <string name="prefedit_activity">설정</string>
     <string name="update_activity">수정</string>
+    <string name="user_activity">수정 및 탈퇴</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
 </resources>

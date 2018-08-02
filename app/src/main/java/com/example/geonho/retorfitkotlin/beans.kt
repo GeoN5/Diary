@@ -25,4 +25,8 @@ data class DiaryListGet(val diaries : List<Diary>,val result: Result)
 
 data class DetailResponse(val diary: Diary,val result: Result)
 
+data class UserEditResult(val success:Boolean,val message: String,val username: String,val token: String )
+
+data class UserEditResponse(val result:UserEditResult)
+
 
