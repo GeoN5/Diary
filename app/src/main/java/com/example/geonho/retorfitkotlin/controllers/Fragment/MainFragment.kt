@@ -15,10 +15,9 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import com.example.geonho.retorfitkotlin.*
-import com.example.geonho.retorfitkotlin.controllers.activities.PrefEditActivity
 import com.example.geonho.retorfitkotlin.controllers.activities.WriteActivity
 import com.example.geonho.retorfitkotlin.controllers.adapters.DiaryRecyclerAdapter
-import kotlinx.android.synthetic.main.activity_navigation.*
+import kotlinx.android.synthetic.main.activity_navigation.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -71,9 +70,9 @@ class MainFragment : Fragment() {
 
     fun setRecyclerView(){
         diaryRecyclerAdapter = DiaryRecyclerAdapter(diaryList, context!!)
-        diaryRecyclerView.adapter = diaryRecyclerAdapter
-        diaryRecyclerView.setHasFixedSize(true)
-        diaryRecyclerView.layoutManager = LinearLayoutManager(context!!)
+        fragmentView.diaryRecyclerView.adapter = diaryRecyclerAdapter
+        fragmentView.diaryRecyclerView.setHasFixedSize(true)
+        fragmentView.diaryRecyclerView.layoutManager = LinearLayoutManager(context!!)
     }
 
     override fun onResume() {
@@ -83,7 +82,7 @@ class MainFragment : Fragment() {
     }
 
     fun setListener(){
-        fab.setOnClickListener {
+        fragmentView.fab.setOnClickListener {
             startActivity(Intent(context!!, WriteActivity::class.java))
         }
     }

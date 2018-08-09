@@ -14,7 +14,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.example.geonho.retorfitkotlin.*
 import com.example.geonho.retorfitkotlin.controllers.activities.UserActivity
-import kotlinx.android.synthetic.main.activity_user.*
+import kotlinx.android.synthetic.main.fragment_user.view.*
 import pub.devrel.easypermissions.EasyPermissions
 import retrofit2.Call
 import retrofit2.Callback
@@ -49,17 +49,17 @@ class UserFragment : Fragment(), EasyPermissions.PermissionCallbacks {
 
     fun loadData(){
         var userName: String? = SharedPreferenceUtil.getData(context!!,"username")
-        profileImage.loadImage("http://purplebeen.kr:3000/images/$userName.jpg",context!!)
+        fragmentView.profileImage.loadImage("http://purplebeen.kr:3000/images/$userName.jpg",context!!)
     }
 
     fun setListeners(){
-        profileImage.setOnClickListener {
+        fragmentView.profileImage.setOnClickListener {
             image()
         }
-        completeButton.setOnClickListener {
+        fragmentView.completeButton.setOnClickListener {
             modifyUserData()
         }
-        deleteTextView.setOnClickListener {
+        fragmentView.deleteTextView.setOnClickListener {
 
         }
 
@@ -68,7 +68,7 @@ class UserFragment : Fragment(), EasyPermissions.PermissionCallbacks {
     fun modifyUserData(){
         var userName : String? = SharedPreferenceUtil.getData(context!!,"username")
         var userService : UserService = RetrofitUtil.getLoginRetrofit(context!!).create(UserService::class.java)
-        var user : User = User(usernameEditText.text.toString(),passwordEditText.text.toString())
+        var user : User = User(fragmentView.usernameEditText.text.toString(),fragmentView.passwordEditText.text.toString())
         var call : Call<UserEditResponse> = userService.modifyUser(userName!!,user, RetrofitUtil.createRequestBody(file,"profile"))
 
         call.enqueue(object : Callback<UserEditResponse> {
@@ -105,7 +105,7 @@ class UserFragment : Fragment(), EasyPermissions.PermissionCallbacks {
         if(requestCode == REQUEST_GALLERY_CODE && resultCode == Activity.RESULT_OK){
             uri = data!!.data//사진 data를 가져옴.
             if(EasyPermissions.hasPermissions(context!!,android.Manifest.permission.READ_EXTERNAL_STORAGE)){
-                profileImage.loadImage(uri!!,context!!)//glide
+                fragmentView.profileImage.loadImage(uri!!,context!!)//glide
                 var filePath : String = getRealPathFromURI(uri!!,activity!!) //실제 path가 담김.
                 file = File(filePath)
             }else{
