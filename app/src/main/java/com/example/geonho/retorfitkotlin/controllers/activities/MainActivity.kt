@@ -34,13 +34,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         nav_view.setNavigationItemSelectedListener(this)
         supportFragmentManager.beginTransaction().add(R.id.content_main,MainFragment()).commit()
 
-        //navigationHeaderset()
+        navigationHeaderset()
     }
 
-//    fun navigationHeaderset(){
-//        nav_view.textView.text = SharedPreferenceUtil.getData(applicationContext,"username")!!
-//        nav_view.imageView.loadImage("purplebeen.kr:3000/images/${SharedPreferenceUtil.getData(applicationContext,"username")}.jpg",this)
-//    }
+    fun navigationHeaderset(){
+        //nav_view.textView.text = SharedPreferenceUtil.getData(applicationContext,"username")!!
+        //nav_view.imageView.loadImage("purplebeen.kr:3000/images/${SharedPreferenceUtil.getData(applicationContext,"username")}.jpg",this)
+    }
 
     override fun onBackPressed() {
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
