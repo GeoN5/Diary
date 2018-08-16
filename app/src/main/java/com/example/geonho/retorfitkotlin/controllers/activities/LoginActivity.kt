@@ -24,7 +24,7 @@ class LoginActivity : AppCompatActivity() {
         setListeners()
     }
 
-    fun setListeners() {
+    private fun setListeners() {
         registerTextView.setOnClickListener {
             startActivity(Intent(this@LoginActivity, RegisterActivity::class.java))
         }
@@ -57,7 +57,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onBackPressed() {
         var tempTime = System.currentTimeMillis()
         var intervalTime = tempTime - backPressedTime
-        if ( 0 <= intervalTime && FINSH_INTERVAL_TIME >= intervalTime ) {
+        if (intervalTime in 0..FINSH_INTERVAL_TIME) {
             ActivityCompat.finishAffinity(this);
         } else {
             backPressedTime = tempTime;

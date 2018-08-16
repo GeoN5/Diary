@@ -78,6 +78,13 @@ object SharedPreferenceUtil {
         editor.commit()
     }
 
+    fun removePreferences(context: Context, key: String) {
+        val pref = context.getSharedPreferences("test", Context.MODE_PRIVATE)
+        val editor = pref.edit()
+        editor.remove(key)
+        editor.commit()
+    }
+
 }
 
 object DateUtil{

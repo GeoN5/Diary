@@ -27,13 +27,13 @@ class UpdateActivity:AppCompatActivity(){
         setListener()
     }
 
-    fun setListener(){
+    private fun setListener(){
         writeButton.setOnClickListener {
             updateData()
         }
     }
 
-    fun loadData(){
+    private fun loadData(){
         var diaryService: DiaryService = RetrofitUtil.getLoginRetrofit(applicationContext).create(DiaryService::class.java)
         var call : Call<DetailResponse> = diaryService.detailDiary(id)
         call.enqueue(object : Callback<DetailResponse> {

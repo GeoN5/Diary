@@ -3,7 +3,6 @@ package com.example.geonho.retorfitkotlin.controllers.activities
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.text.format.DateUtils
 import android.text.method.ScrollingMovementMethod
 import android.util.Log
 import android.widget.Toast
@@ -30,7 +29,7 @@ class DetailActivity : AppCompatActivity() {
         setListener()
     }
 
-    fun setListener(){
+    private fun setListener(){
         updateFab.setOnClickListener {
             goToUpdate()
         }
@@ -39,7 +38,7 @@ class DetailActivity : AppCompatActivity() {
         }
     }
 
-    fun loadData(){
+    private fun loadData(){
         var diaryService: DiaryService = RetrofitUtil.getLoginRetrofit(applicationContext).create(DiaryService::class.java)
         var call : Call<DetailResponse> = diaryService.detailDiary(id)
         call.enqueue(object : Callback<DetailResponse>{
@@ -66,13 +65,13 @@ class DetailActivity : AppCompatActivity() {
         })
     }
 
-    fun goToUpdate(){
+    private fun goToUpdate(){
         var intent : Intent = Intent(this, UpdateActivity::class.java)
         intent.putExtra("id",id)
         startActivity(intent)
     }
 
-    fun delete(){
+    private fun delete(){
         var diaryService: DiaryService = RetrofitUtil.getLoginRetrofit(applicationContext).create(DiaryService::class.java)
         var call : Call<com.example.geonho.retorfitkotlin.Response> = diaryService.deleteDiary(id)
         call.enqueue(object : Callback<com.example.geonho.retorfitkotlin.Response>{

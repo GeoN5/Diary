@@ -47,7 +47,7 @@ class UserActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
             modifyUserData()
         }
         deleteTextView.setOnClickListener {
-
+            delete()
         }
 
     }
@@ -118,5 +118,25 @@ class UserActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
             val idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA)//data 컬럼의 인덱스를 가져옴.
             return cursor.getString(idx) //해당하는 인덱스의 실제 path를 String으로 가져옴.
         }
+    }
+
+    fun delete(){
+        var userName : String? = SharedPreferenceUtil.getData(applicationContext,"username")
+        var userService : UserService = RetrofitUtil.getLoginRetrofit(applicationContext).create(UserService::class.java)
+        var call : Call<Response> = userService.delete(userName!!)
+        call.enqueue(object : Callback<Response>{
+            override fun onFailure(call: Call<Response>?, t: Throwable?) {
+                Log.e(TAG,t.toString())
+            }
+
+            override fun onResponse(call: Call<Response>?, response: retrofit2.Response<Response>?) {
+                if(response!!.body()!=null && response!!.body()!!.result.success){
+                    Toast.makeText(applicationContext,"성공적으로 삭제하였습니다",Toast.LENGTH_SHORT).show()
+                    SharedPreferenceUtil.removePreferences(applicationContext,"username")
+                    SharedPreferenceUtil.removePreferences(applicationContext,"token")
+                    startActivity(Intent(applicationContext,LoginActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+                }
+            }
+        })
     }
 }

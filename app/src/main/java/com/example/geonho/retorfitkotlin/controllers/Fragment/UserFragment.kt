@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.example.geonho.retorfitkotlin.*
+import com.example.geonho.retorfitkotlin.controllers.activities.LoginActivity
 import com.example.geonho.retorfitkotlin.controllers.activities.UserActivity
 import kotlinx.android.synthetic.main.fragment_user.view.*
 import pub.devrel.easypermissions.EasyPermissions
@@ -60,7 +61,7 @@ class UserFragment : Fragment(), EasyPermissions.PermissionCallbacks {
             modifyUserData()
         }
         fragmentView.deleteTextView.setOnClickListener {
-
+            delete()
         }
 
     }
@@ -131,6 +132,26 @@ class UserFragment : Fragment(), EasyPermissions.PermissionCallbacks {
             val idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA)//data 컬럼의 인덱스를 가져옴.
             return cursor.getString(idx) //해당하는 인덱스의 실제 path를 String으로 가져옴.
         }
+    }
+
+    fun delete(){
+        var userName : String? = SharedPreferenceUtil.getData(context!!,"username")
+        var userService : UserService = RetrofitUtil.getLoginRetrofit(context!!).create(UserService::class.java)
+        var call : Call<Response> = userService.delete(userName!!)
+        call.enqueue(object : Callback<Response>{
+            override fun onFailure(call: Call<Response>?, t: Throwable?) {
+                Log.e(TAG,t.toString())
+            }
+
+            override fun onResponse(call: Call<Response>?, response: retrofit2.Response<Response>?) {
+               if(response!!.body()!=null && response!!.body()!!.result.success){
+                   Toast.makeText(context,"성공적으로 삭제하였습니다",Toast.LENGTH_SHORT).show()
+                   SharedPreferenceUtil.removePreferences(context!!,"username")
+                   SharedPreferenceUtil.removePreferences(context!!,"token")
+                   startActivity(Intent(context,LoginActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+               }
+            }
+        })
     }
 
 }

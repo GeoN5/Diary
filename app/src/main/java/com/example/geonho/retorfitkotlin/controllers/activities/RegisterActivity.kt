@@ -20,7 +20,7 @@ import java.io.File
 
 class RegisterActivity : AppCompatActivity(),EasyPermissions.PermissionCallbacks {
 
-    var uri : Uri? = null
+    private var uri : Uri? = null
     lateinit var file : File
     private val REQUEST_GALLERY_CODE =200
     private val READ_REQUEST_CODE = 300
@@ -32,7 +32,7 @@ class RegisterActivity : AppCompatActivity(),EasyPermissions.PermissionCallbacks
         setListeners()
     }
 
-    fun setListeners(){
+    private fun setListeners(){
         profileImage.setOnClickListener {
             image()
         }
@@ -83,7 +83,7 @@ class RegisterActivity : AppCompatActivity(),EasyPermissions.PermissionCallbacks
         }
     }
 
-    fun register() {
+    private fun register() {
         if (password1EditText.text.toString().equals(password2EditText.text.toString())) {
             var user = User(usernameEditText.text.toString(), password1EditText.text.toString())
             var userService: UserService = RetrofitUtil.retrofit.create(UserService::class.java)

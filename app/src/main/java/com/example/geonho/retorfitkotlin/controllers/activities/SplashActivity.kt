@@ -17,7 +17,7 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 
         val prefs = PreferenceManager.getDefaultSharedPreferences(this)
-        var login = (java.lang.Boolean.valueOf(prefs.getBoolean("autoLogin", false)).toString())
+        val login = (java.lang.Boolean.valueOf(prefs.getBoolean("autoLogin", false)).toString())
 
         Handler().postDelayed({
 

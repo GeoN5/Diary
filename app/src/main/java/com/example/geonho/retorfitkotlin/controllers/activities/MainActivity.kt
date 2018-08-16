@@ -2,12 +2,10 @@ package com.example.geonho.retorfitkotlin.controllers.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import com.example.geonho.retorfitkotlin.R
@@ -37,9 +35,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         navigationHeaderset()
     }
 
-    fun navigationHeaderset(){
-        //nav_view.textView.text = SharedPreferenceUtil.getData(applicationContext,"username")!!
-        //nav_view.imageView.loadImage("purplebeen.kr:3000/images/${SharedPreferenceUtil.getData(applicationContext,"username")}.jpg",this)
+    private fun navigationHeaderset(){
+        nav_view.getHeaderView(0).textView.text = SharedPreferenceUtil.getData(applicationContext,"username")!!
+        nav_view.getHeaderView(0).imageView.loadImage("http://purplebeen.kr:3000/images/${SharedPreferenceUtil.getData(applicationContext,"username")}.jpg",this)
     }
 
     override fun onBackPressed() {
@@ -57,15 +55,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        when (item.itemId) {
+
+        return when (item.itemId) {
             R.id.setting -> {
                 startActivity(Intent(this@MainActivity,PrefEditActivity::class.java))
-                return true
+                true
             }
-            else -> return super.onOptionsItemSelected(item)
+            else -> super.onOptionsItemSelected(item)
         }
     }
 
