@@ -7,6 +7,9 @@ import android.text.method.ScrollingMovementMethod
 import android.util.Log
 import android.widget.Toast
 import com.example.geonho.retorfitkotlin.*
+import com.example.geonho.retorfitkotlin.server.DetailResponse
+import com.example.geonho.retorfitkotlin.server.Diary
+import com.example.geonho.retorfitkotlin.server.DiaryService
 import kotlinx.android.synthetic.main.activity_detail.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -39,16 +42,16 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun loadData(){
-        var diaryService: DiaryService = RetrofitUtil.getLoginRetrofit(applicationContext).create(DiaryService::class.java)
-        var call : Call<DetailResponse> = diaryService.detailDiary(id)
+        val diaryService: DiaryService = RetrofitUtil.getLoginRetrofit(applicationContext).create(DiaryService::class.java)
+        val call : Call<DetailResponse> = diaryService.detailDiary(id)
         call.enqueue(object : Callback<DetailResponse>{
             override fun onFailure(call: Call<DetailResponse>?, t: Throwable?) {
-                Log.w(TAG,t)
+                Log.e(TAG,t.toString())
             }
 
             override fun onResponse(call: Call<DetailResponse>?, response: Response<DetailResponse>?) {
                 if(response!!.body()!=null&&response.body()!!.result.success){
-                    var diary : Diary = response.body()!!.diary
+                    val diary : Diary = response.body()!!.diary
                     titleText.text = diary.title
                     contentText.text = diary.content
                     dateText.text = DateUtil.formatDate(diary.date)
@@ -66,21 +69,19 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun goToUpdate(){
-        var intent : Intent = Intent(this, UpdateActivity::class.java)
-        intent.putExtra("id",id)
-        startActivity(intent)
+          startActivity(Intent(this@DetailActivity,UpdateActivity::class.java).putExtra("id",id))
     }
 
     private fun delete(){
-        var diaryService: DiaryService = RetrofitUtil.getLoginRetrofit(applicationContext).create(DiaryService::class.java)
-        var call : Call<com.example.geonho.retorfitkotlin.Response> = diaryService.deleteDiary(id)
-        call.enqueue(object : Callback<com.example.geonho.retorfitkotlin.Response>{
-            override fun onFailure(call: Call<com.example.geonho.retorfitkotlin.Response>?, t: Throwable?) {
+        val diaryService: DiaryService = RetrofitUtil.getLoginRetrofit(applicationContext).create(DiaryService::class.java)
+        val call : Call<com.example.geonho.retorfitkotlin.server.Response> = diaryService.deleteDiary(id)
+        call.enqueue(object : Callback<com.example.geonho.retorfitkotlin.server.Response>{
+            override fun onFailure(call: Call<com.example.geonho.retorfitkotlin.server.Response>?, t: Throwable?) {
                 Toast.makeText(applicationContext,"삭제에 실패하였습니다.",Toast.LENGTH_SHORT).show()
                 Log.e(TAG, t.toString())
             }
 
-            override fun onResponse(call: Call<com.example.geonho.retorfitkotlin.Response>?, response: Response<com.example.geonho.retorfitkotlin.Response>?) {
+            override fun onResponse(call: Call<com.example.geonho.retorfitkotlin.server.Response>?, response: Response<com.example.geonho.retorfitkotlin.server.Response>?) {
                 if(response!!.body()!=null&& response.body()!!.result.success){
                     Toast.makeText(applicationContext,"성공적으로 삭제하였습니다!",Toast.LENGTH_LONG).show()
                     finish()

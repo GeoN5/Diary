@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -21,13 +21,15 @@
         <Space
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="130"/>
+            android:layout_weight="130"
+            tools:ignore="NestedWeights" />
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profileImage"
             android:src="@android:color/darker_gray"
             android:layout_width="0dp"
-            android:layout_weight="80"
-            android:layout_height="match_parent" />
+            android:layout_weight="90"
+            android:layout_height="match_parent"
+            android:elevation="5dp"/>
     </LinearLayout>
 
     <Space
@@ -38,15 +40,16 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="40"
-        android:hint="새로운 아이디"
+        android:hint="@string/new_id"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp">
         <android.support.design.widget.TextInputEditText
             android:id="@+id/usernameEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:inputType="text"/>
+            android:paddingStart="10dp"
+            android:inputType="text"
+            tools:ignore="RtlSymmetry" />
     </android.support.design.widget.TextInputLayout>
 
     <Space
@@ -58,15 +61,16 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="40"
-        android:hint="새로운 비밀번호"
+        android:hint="@string/new_pw"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp">
         <android.support.design.widget.TextInputEditText
             android:id="@+id/passwordEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:inputType="textPassword"/>
+            android:paddingStart="10dp"
+            android:inputType="textPassword"
+            tools:ignore="RtlSymmetry" />
     </android.support.design.widget.TextInputLayout>
 
     <Space
@@ -81,9 +85,10 @@
         android:layout_weight="40"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:text="수정 완료"
+        android:text="@string/modify_button"
         android:textColor="@android:color/white"
-        android:background="@color/colorPrimary"/>
+        android:background="@color/colorPrimary"
+        android:elevation="5dp"/>
 
     <Space
         android:layout_width="match_parent"
@@ -95,9 +100,9 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="20"
-        android:textSize="6pt"
+        android:textSize="7pt"
         android:textColor="@color/colorAccent"
         android:gravity="center"
-        android:text="계정 탈퇴"/>
+        android:text="@string/out_text"/>
 
 </LinearLayout>

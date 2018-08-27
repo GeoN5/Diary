@@ -10,6 +10,15 @@
             android:title="자동 로그인"
             android:summary="자동 로그인 끄기"/>
 
+        <Preference
+            android:key="Logout"
+            android:title="로그아웃"
+            android:summary="사용자 계정 로그아웃">
+            <intent
+                android:targetClass="com.example.geonho.retorfitkotlin.controllers.activities.LoginActivity"
+                android:targetPackage="com.example.geonho.retorfitkotlin" />
+        </Preference>
+
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -18,8 +27,8 @@
 
         <Preference
             android:key="userService"
-            android:title="유저 서비스"
-            android:summary="사용자 정보 수정 및 계정 탈퇴.">
+            android:title="사용자 계정 서비스"
+            android:summary="사용자 계정 정보 수정 및 탈퇴">
         <intent
             android:targetClass="com.example.geonho.retorfitkotlin.controllers.activities.UserActivity"
             android:targetPackage="com.example.geonho.retorfitkotlin" />

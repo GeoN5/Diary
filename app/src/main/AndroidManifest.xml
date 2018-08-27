@@ -46,7 +46,7 @@
         <activity
             android:name=".controllers.activities.MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/NoTitle" />
     </application>
 
 </manifest>

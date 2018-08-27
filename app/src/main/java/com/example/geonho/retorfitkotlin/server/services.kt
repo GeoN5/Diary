@@ -1,26 +1,24 @@
-package com.example.geonho.retorfitkotlin
+package com.example.geonho.retorfitkotlin.server
 
 import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.*
 
-interface services {
-}
 
 interface UserService{
     @POST("/sign")//로그인
-    fun login(@Body user:User) : Call<LoginResponse>
+    fun login(@Body user: User) : Call<LoginResponse>
 
     @POST("/users")//회원가입
     @Multipart
-    fun register(@Part("data")user : User , @Part profile: MultipartBody.Part): Call<Response>
+    fun register(@Part("data")user : User, @Part profile: MultipartBody.Part): Call<Response>
 
     @DELETE("/users/{userName}")//계정삭제
     fun delete(@Path("userName")userName: String) : Call<Response>
 
     @Multipart
     @PUT("/users/{userName}")//정보 수정
-    fun modifyUser(@Path("userName")userName: String,@Part("data")user:User,@Part profile: MultipartBody.Part):Call<UserEditResponse>
+    fun modifyUser(@Path("userName")userName: String, @Part("data")user: User, @Part profile: MultipartBody.Part):Call<UserEditResponse>
 
 }
 

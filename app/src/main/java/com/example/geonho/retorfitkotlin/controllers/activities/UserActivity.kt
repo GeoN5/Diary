@@ -10,6 +10,10 @@ import android.support.design.widget.Snackbar
 import android.util.Log
 import android.widget.Toast
 import com.example.geonho.retorfitkotlin.*
+import com.example.geonho.retorfitkotlin.server.Response
+import com.example.geonho.retorfitkotlin.server.User
+import com.example.geonho.retorfitkotlin.server.UserEditResponse
+import com.example.geonho.retorfitkotlin.server.UserService
 import kotlinx.android.synthetic.main.activity_user.*
 import pub.devrel.easypermissions.EasyPermissions
 import retrofit2.Call
@@ -34,12 +38,12 @@ class UserActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
         setListeners()
     }
 
-    fun loadData(){
-        var userName: String? = SharedPreferenceUtil.getData(applicationContext,"username")
+    private fun loadData(){
+        val userName: String? = SharedPreferenceUtil.getData(applicationContext,"username")
         profileImage.loadImage("http://purplebeen.kr:3000/images/$userName.jpg",applicationContext)
     }
 
-    fun setListeners(){
+    private fun setListeners(){
         profileImage.setOnClickListener {
             image()
         }
@@ -52,11 +56,11 @@ class UserActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
 
     }
 
-    fun modifyUserData(){
-        var userName : String? = SharedPreferenceUtil.getData(applicationContext,"username")
-        var userService : UserService = RetrofitUtil.getLoginRetrofit(applicationContext).create(UserService::class.java)
-        var user : User = User(usernameEditText.text.toString(),passwordEditText.text.toString())
-        var call : Call<UserEditResponse> = userService.modifyUser(userName!!,user,RetrofitUtil.createRequestBody(file,"profile"))
+    private fun modifyUserData(){
+        val userName : String? = SharedPreferenceUtil.getData(applicationContext,"username")
+        val userService : UserService = RetrofitUtil.getLoginRetrofit(applicationContext).create(UserService::class.java)
+        val user = User(usernameEditText.text.toString(), passwordEditText.text.toString())
+        val call : Call<UserEditResponse> = userService.modifyUser(userName!!,user,RetrofitUtil.createRequestBody(file,"profile"))
 
         call.enqueue(object : Callback<UserEditResponse>{
             override fun onFailure(call: Call<UserEditResponse>?, t: Throwable?) {
@@ -65,10 +69,10 @@ class UserActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
             }
 
             override fun onResponse(call: Call<UserEditResponse>?, response: retrofit2.Response<UserEditResponse>?) {
-                if(response?.body()!=null&&response!!.body()!!.result.success){
+                if(response?.body()!=null&&response.body()!!.result.success){
                     SharedPreferenceUtil.saveData(applicationContext,"username", response.body()!!.result.username)
                     SharedPreferenceUtil.saveData(applicationContext,"token",response.body()!!.result.token)
-                    Toast.makeText(applicationContext,response!!.body()!!.result.message,Toast.LENGTH_LONG).show()
+                    Toast.makeText(applicationContext,response.body()!!.result.message,Toast.LENGTH_LONG).show()
                     finish()
                 }else{
                     Toast.makeText(applicationContext,response!!.body()!!.result.message,Toast.LENGTH_LONG).show()
@@ -93,7 +97,7 @@ class UserActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
             uri = data!!.data//사진 data를 가져옴.
             if(EasyPermissions.hasPermissions(applicationContext,android.Manifest.permission.READ_EXTERNAL_STORAGE)){
                 profileImage.loadImage(uri!!,applicationContext)//glide
-                var filePath : String = getRealPathFromURI(uri!!,this) //실제 path가 담김.
+                val filePath : String = getRealPathFromURI(uri!!,this) //실제 path가 담김.
                 file = File(filePath)
             }else{
                 EasyPermissions.requestPermissions(this@UserActivity,"파일을 읽기 위해서는 권한이 필요합니다!",READ_REQUEST_CODE, android.Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -111,26 +115,26 @@ class UserActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
     private fun getRealPathFromURI(contentURI: Uri,activity: Activity):String{
         val cursor = activity.contentResolver.query(contentURI,null,null,null,null)
         //contentResolver라는 db에서 해당 URI를 탐색할수있는 cursor객체를 받아옴.
-        if(cursor ==null){
-            return contentURI.path
+        return if(cursor ==null){
+            contentURI.path
         }else{
             cursor.moveToFirst() //커서의 위치를 맨 앞인 첫 번째로 옮겨서
             val idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA)//data 컬럼의 인덱스를 가져옴.
-            return cursor.getString(idx) //해당하는 인덱스의 실제 path를 String으로 가져옴.
+            cursor.getString(idx) //해당하는 인덱스의 실제 path를 String으로 가져옴.
         }
     }
 
-    fun delete(){
-        var userName : String? = SharedPreferenceUtil.getData(applicationContext,"username")
-        var userService : UserService = RetrofitUtil.getLoginRetrofit(applicationContext).create(UserService::class.java)
-        var call : Call<Response> = userService.delete(userName!!)
+    private fun delete(){
+        val userName : String? = SharedPreferenceUtil.getData(applicationContext,"username")
+        val userService : UserService = RetrofitUtil.getLoginRetrofit(applicationContext).create(UserService::class.java)
+        val call : Call<Response> = userService.delete(userName!!)
         call.enqueue(object : Callback<Response>{
             override fun onFailure(call: Call<Response>?, t: Throwable?) {
                 Log.e(TAG,t.toString())
             }
 
             override fun onResponse(call: Call<Response>?, response: retrofit2.Response<Response>?) {
-                if(response!!.body()!=null && response!!.body()!!.result.success){
+                if(response!!.body()!=null && response.body()!!.result.success){
                     Toast.makeText(applicationContext,"성공적으로 삭제하였습니다",Toast.LENGTH_SHORT).show()
                     SharedPreferenceUtil.removePreferences(applicationContext,"username")
                     SharedPreferenceUtil.removePreferences(applicationContext,"token")

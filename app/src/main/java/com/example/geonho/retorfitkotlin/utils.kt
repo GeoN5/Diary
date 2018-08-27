@@ -1,5 +1,6 @@
 package com.example.geonho.retorfitkotlin
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.net.Uri
@@ -30,7 +31,7 @@ object RetrofitUtil {
     var retrofit = Retrofit.Builder()
             .baseUrl("http://purplebeen.kr:3000")
             .addConverterFactory(GsonConverterFactory.create())
-            .build()
+            .build()!!
 
     val MULTIPART_FORM_DATA = "multipart/form-data"
 
@@ -40,7 +41,7 @@ object RetrofitUtil {
             val original = chain.request()
             val token = SharedPreferenceUtil.getData(context,"token")
             val request = original.newBuilder()
-                    .header("authorization", token)
+                    .header("authorization", token!!)
                     .method(original.method(), original.body())
                     .build()
             chain.proceed(request)
@@ -67,34 +68,35 @@ object RetrofitUtil {
 object SharedPreferenceUtil {
 
     fun getData(context : Context, key : String) : String? {
-        var sharedPreferences : SharedPreferences = context.getSharedPreferences("test",Context.MODE_PRIVATE)
+        val sharedPreferences : SharedPreferences = context.getSharedPreferences("test",Context.MODE_PRIVATE)
         return sharedPreferences.getString(key, null)
     }
 
     fun saveData(context: Context, key : String, value : String) {
-        var sharedPreferences : SharedPreferences = context.getSharedPreferences("test", Context.MODE_PRIVATE)
-        var editor : SharedPreferences.Editor = sharedPreferences.edit()
+        val sharedPreferences : SharedPreferences = context.getSharedPreferences("test", Context.MODE_PRIVATE)
+        val editor : SharedPreferences.Editor = sharedPreferences.edit()
         editor.putString(key, value)
-        editor.commit()
+        editor.apply()
     }
 
     fun removePreferences(context: Context, key: String) {
         val pref = context.getSharedPreferences("test", Context.MODE_PRIVATE)
         val editor = pref.edit()
         editor.remove(key)
-        editor.commit()
+        editor.apply()
     }
 
 }
 
 object DateUtil{
+    @SuppressLint("SimpleDateFormat")
     fun formatDate(dateData : String):String{
         //JS 고유 날짜 포맷 형식객체를 만듬.
         val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX")
         //인자를 형변환해서 Date 타입 객체로 받음.
-        var date : Date = inputFormat.parse(dateData)
+        val date : Date = inputFormat.parse(dateData)
         //바꿀 포맷 형식으로 객체 생성.
-        var simpleDataFormat : SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        val simpleDataFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
         //format 메소드를 통해 바꿔서 리턴.
         return simpleDataFormat.format(date)
     }

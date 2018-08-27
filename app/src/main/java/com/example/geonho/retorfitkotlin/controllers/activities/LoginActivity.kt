@@ -7,6 +7,9 @@ import android.support.v4.app.ActivityCompat
 import android.util.Log
 import android.widget.Toast
 import com.example.geonho.retorfitkotlin.*
+import com.example.geonho.retorfitkotlin.server.LoginResponse
+import com.example.geonho.retorfitkotlin.server.User
+import com.example.geonho.retorfitkotlin.server.UserService
 import kotlinx.android.synthetic.main.activity_login.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -16,6 +19,10 @@ class LoginActivity : AppCompatActivity() {
 
     private val FINSH_INTERVAL_TIME = 2000
     private var backPressedTime:Long = 0
+
+    companion object {
+        val TAG: String = LoginActivity::class.java.simpleName
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,11 +37,12 @@ class LoginActivity : AppCompatActivity() {
         }
 
         loginButton.setOnClickListener {
-            var user: User = User(usernameEditText.text.toString(), passwordEditText.text.toString())
-            var userService: UserService = RetrofitUtil.retrofit.create(UserService::class.java)
-            var call: Call<LoginResponse> = userService.login(user)
+            val user = User(usernameEditText.text.toString(), passwordEditText.text.toString())
+            val userService: UserService = RetrofitUtil.retrofit.create(UserService::class.java)
+            val call: Call<LoginResponse> = userService.login(user)
             call.enqueue(object : Callback<LoginResponse> {
                 override fun onFailure(call: Call<LoginResponse>?, t: Throwable?) {
+                    Log.e(TAG,t.toString())
                     Toast.makeText(applicationContext, "네트워크 에러가 발생하였습니다!", Toast.LENGTH_SHORT).show()
                 }
 
@@ -46,7 +54,7 @@ class LoginActivity : AppCompatActivity() {
                         Log.d("token", SharedPreferenceUtil.getData(applicationContext, "token") + "is saved")
                         startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                     } else {
-                        Toast.makeText(applicationContext, response.body()?.result?.message, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(applicationContext, response.body()!!.result.message, Toast.LENGTH_SHORT).show()
                     }
                 }
 
@@ -55,12 +63,12 @@ class LoginActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        var tempTime = System.currentTimeMillis()
-        var intervalTime = tempTime - backPressedTime
+        val tempTime = System.currentTimeMillis()
+        val intervalTime = tempTime - backPressedTime
         if (intervalTime in 0..FINSH_INTERVAL_TIME) {
-            ActivityCompat.finishAffinity(this);
+            ActivityCompat.finishAffinity(this)
         } else {
-            backPressedTime = tempTime;
+            backPressedTime = tempTime
             Toast.makeText(applicationContext, "한번 더 누르시면 종료됩니다.",Toast.LENGTH_SHORT).show()
         }
     }

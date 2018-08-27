@@ -5,6 +5,9 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import com.example.geonho.retorfitkotlin.*
+import com.example.geonho.retorfitkotlin.server.Diary
+import com.example.geonho.retorfitkotlin.server.DiaryService
+import com.example.geonho.retorfitkotlin.server.Response
 import kotlinx.android.synthetic.main.activity_write.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -22,39 +25,38 @@ class WriteActivity : AppCompatActivity() {
         setListener()
     }
 
-    fun setListener(){
+    private fun setListener(){
         writeButton.setOnClickListener {
             writeData()
         }
     }
 
-    fun writeData(){
-        var id : String? = SharedPreferenceUtil.getData(applicationContext, "username")
-        var diaryService : DiaryService = RetrofitUtil.getLoginRetrofit(applicationContext).create(DiaryService::class.java)
-        var diary : Diary = Diary(editTitle.text.toString(), editContent.text.toString(), id!!)
-        if(id!=null){
-            var call: Call<Response> = diaryService.writeDiary(diary)
-            call.enqueue(object : Callback<Response>{
-                override fun onFailure(call: Call<Response>?, t: Throwable?) {
-                    Log.w(TAG,t)
-                }
+    private fun writeData(){
+        val username : String? = SharedPreferenceUtil.getData(applicationContext, "username")
+        val diaryService : DiaryService = RetrofitUtil.getLoginRetrofit(applicationContext).create(DiaryService::class.java)
+        val diary = Diary(editTitle.text.toString(), editContent.text.toString(), username!!)
 
-                override fun onResponse(call: Call<Response>?, response: retrofit2.Response<Response>?) {
-                    if(response!!.body()!=null&&response!!.body()!!.result.success){
-                        Toast.makeText(applicationContext,"성공적으로 작성하였습니다.",Toast.LENGTH_SHORT).show()
-                        finish()
+        val call: Call<Response> = diaryService.writeDiary(diary)
+        call.enqueue(object : Callback<Response>{
+            override fun onFailure(call: Call<Response>?, t: Throwable?) {
+                Log.e(TAG,t.toString())
+            }
+
+            override fun onResponse(call: Call<Response>?, response: retrofit2.Response<Response>?) {
+                if(response!!.body()!=null&&response.body()!!.result.success){
+                    Toast.makeText(applicationContext,"성공적으로 작성하였습니다.",Toast.LENGTH_SHORT).show()
+                    finish()
+                }else{
+                    if(response.body()==null){
+                        Log.e(TAG,"Server Error or Network Error!")
+                        Toast.makeText(applicationContext,"네트워크 오류입니다. 잠시후 다시 시도해주세요.",Toast.LENGTH_SHORT).show()
                     }else{
-                        if(response.body()==null){
-                            Log.e(TAG,"Server Error or Network Error!")
-                            Toast.makeText(applicationContext,"네트워크 오류입니다. 잠시후 다시 시도해주세요.",Toast.LENGTH_SHORT).show()
-                        }else{
-                            Log.e(TAG,response.body()!!.result.message)
-                            Toast.makeText(applicationContext,response.body()!!.result.message,Toast.LENGTH_SHORT).show()
-                        }
+                        Log.e(TAG,response.body()!!.result.message)
+                        Toast.makeText(applicationContext,response.body()!!.result.message,Toast.LENGTH_SHORT).show()
                     }
                 }
+            }
 
-            })
-        }
+        })
     }
 }

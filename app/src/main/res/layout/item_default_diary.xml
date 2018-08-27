@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="80dp"
     xmlns:tools="http://schemas.android.com/tools"
@@ -11,22 +12,25 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="65"
-        android:paddingLeft="10dp"
+        android:paddingStart="10dp"
         android:textSize="15pt"
         android:layout_marginTop="10dp"
         android:textColor="@android:color/black"
-        tools:text="제목" />
+        tools:text="제목"
+        tools:ignore="RtlSymmetry" />
     <TextView
         android:id="@+id/dateText"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="30"
-        android:paddingLeft="10dp"
+        android:paddingStart="10dp"
         android:textColor="@android:color/black"
-        tools:text="2018-07-01 11:24:32"/>
+        tools:text="2018-07-01 11:24:32"
+        tools:ignore="RtlSymmetry" />
     <View
         android:layout_width="match_parent"
         android:background="@android:color/darker_gray"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="2"/>
+
 </LinearLayout>
