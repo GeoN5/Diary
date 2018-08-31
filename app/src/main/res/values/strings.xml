@@ -35,4 +35,5 @@
     <string name="register">회원가입</string>
     <string name="login">로그인</string>
     <string name="day">2018-07-08</string>
+    <string name="logout">로그아웃</string>
 </resources>

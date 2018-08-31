@@ -1,7 +1,6 @@
 package com.example.geonho.retorfitkotlin.controllers.activities
 
 import android.app.Activity
-import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
@@ -36,13 +35,24 @@ class RegisterActivity : AppCompatActivity(),EasyPermissions.PermissionCallbacks
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
+        addView()
         setListeners()
     }
 
-    private fun setListeners(){
+    private fun addView(){
         profileImage.setOnClickListener {
-            image()
+            if(EasyPermissions.hasPermissions(this, android.Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                image()
+            } else {
+                EasyPermissions.requestPermissions(this, "이미지를 가져오기 위해서 권한이 필요합니다", READ_REQUEST_CODE, android.Manifest.permission.READ_EXTERNAL_STORAGE)
+            }
         }
+    }
+
+    private fun setListeners(){
+//        profileImage.setOnClickListener {
+//            image()
+//        }
         registerButton.setOnClickListener {
             register()
         }
@@ -54,8 +64,12 @@ class RegisterActivity : AppCompatActivity(),EasyPermissions.PermissionCallbacks
     }
 
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
-        if(uri!=null)
+//        if(uri!=null)
             image()
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        EasyPermissions.onRequestPermissionsResult(requestCode,permissions,grantResults, this)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

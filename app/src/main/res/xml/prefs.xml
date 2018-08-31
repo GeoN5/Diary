@@ -10,15 +10,6 @@
             android:title="자동 로그인"
             android:summary="자동 로그인 끄기"/>
 
-        <Preference
-            android:key="Logout"
-            android:title="로그아웃"
-            android:summary="사용자 계정 로그아웃">
-            <intent
-                android:targetClass="com.example.geonho.retorfitkotlin.controllers.activities.LoginActivity"
-                android:targetPackage="com.example.geonho.retorfitkotlin" />
-        </Preference>
-
     </PreferenceCategory>
 
     <PreferenceCategory

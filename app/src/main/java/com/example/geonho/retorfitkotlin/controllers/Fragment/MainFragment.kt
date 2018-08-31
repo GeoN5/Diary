@@ -21,7 +21,6 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-
 class MainFragment : Fragment() {
 
 
@@ -42,8 +41,8 @@ class MainFragment : Fragment() {
         // Inflate the layout for this fragment
         fragmentView = inflater.inflate(R.layout.fragment_main, container, false)
 
-        setListener()
         loadData()
+        setListener()
         return fragmentView
     }
 
@@ -84,7 +83,7 @@ class MainFragment : Fragment() {
 
     private fun setListener(){
         fragmentView.fab.setOnClickListener {
-            startActivity(Intent(context, WriteActivity::class.java))
+             startActivity(Intent(context, WriteActivity::class.java))
         }
     }
 

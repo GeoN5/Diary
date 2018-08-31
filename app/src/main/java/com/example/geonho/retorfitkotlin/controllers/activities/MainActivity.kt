@@ -85,6 +85,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_user -> {
                 supportFragmentManager.beginTransaction().replace(R.id.content_main,UserFragment.newInstance()).commit()
             }
+            R.id.nav_logout ->{
+                SharedPreferenceUtil.removePreferences(this@MainActivity,"username")
+                SharedPreferenceUtil.removePreferences(this@MainActivity,"token")
+                startActivity(Intent(this@MainActivity,LoginActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+            }
         }
 
         drawer_layout.closeDrawer(GravityCompat.START)

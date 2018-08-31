@@ -12,6 +12,10 @@
             android:id="@+id/nav_user"
             android:icon="@drawable/ic_assignment_ind_black_24dp"
             android:title="@string/nav_view_user_title" />
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_zoom_out_black_24dp"
+            android:title="@string/logout"/>
     </group>
 
 </menu>
