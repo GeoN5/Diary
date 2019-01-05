@@ -50,9 +50,6 @@ class RegisterActivity : AppCompatActivity(),EasyPermissions.PermissionCallbacks
     }
 
     private fun setListeners(){
-//        profileImage.setOnClickListener {
-//            image()
-//        }
         registerButton.setOnClickListener {
             register()
         }
@@ -64,7 +61,6 @@ class RegisterActivity : AppCompatActivity(),EasyPermissions.PermissionCallbacks
     }
 
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
-//        if(uri!=null)
             image()
     }
 
