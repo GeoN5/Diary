@@ -13,7 +13,7 @@
         android:layout_height="0dp"
         android:layout_weight="65"
         android:paddingStart="10dp"
-        android:textSize="15pt"
+        android:textSize="30sp"
         android:layout_marginTop="10dp"
         android:textColor="@android:color/black"
         tools:text="제목"

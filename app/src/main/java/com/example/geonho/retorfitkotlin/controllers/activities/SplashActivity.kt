@@ -23,7 +23,6 @@ class SplashActivity : AppCompatActivity() {
         done.playAnimation()
 
         Handler().postDelayed({
-
             if(SharedPreferenceUtil.getData(applicationContext, "token") ==null ||
                     SharedPreferenceUtil.getData(applicationContext, "token") !=null&& login == "true"){
                 startActivity(Intent(this@SplashActivity, LoginActivity::class.java))

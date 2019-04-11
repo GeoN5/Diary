@@ -44,7 +44,8 @@ class RegisterActivity : AppCompatActivity(),EasyPermissions.PermissionCallbacks
             if(EasyPermissions.hasPermissions(this, android.Manifest.permission.READ_EXTERNAL_STORAGE)) {
                 image()
             } else {
-                EasyPermissions.requestPermissions(this, "이미지를 가져오기 위해서 권한이 필요합니다", READ_REQUEST_CODE, android.Manifest.permission.READ_EXTERNAL_STORAGE)
+                EasyPermissions.requestPermissions(this, "이미지를 가져오기 위해서 권한이 필요합니다",
+                        READ_REQUEST_CODE, android.Manifest.permission.READ_EXTERNAL_STORAGE)
             }
         }
     }
@@ -82,7 +83,7 @@ class RegisterActivity : AppCompatActivity(),EasyPermissions.PermissionCallbacks
         }
     }
 
-    fun image(){
+    private fun image(){
         val openGalleryIntent = Intent(Intent.ACTION_PICK)
         openGalleryIntent.type="image/*"
         startActivityForResult(openGalleryIntent,REQUEST_GALLERY_CODE)
@@ -101,8 +102,8 @@ class RegisterActivity : AppCompatActivity(),EasyPermissions.PermissionCallbacks
     }
 
     private fun register() {
-        if (password1EditText.text.toString() == password2EditText.text.toString()) {
-            val user = User(usernameEditText.text.toString(), password1EditText.text.toString())
+        if (password1EditText.text.toString().trim() == password2EditText.text.toString().trim()) {
+            val user = User(usernameEditText.text.toString().trim(), password1EditText.text.toString().trim())
             val userService: UserService = RetrofitUtil.retrofit.create(UserService::class.java)
             val signCall: Call<Response> = userService.register(user, RetrofitUtil.createRequestBody(file, "profile"))
 

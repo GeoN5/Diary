@@ -35,8 +35,8 @@ class WriteActivity : AppCompatActivity() {
         val username : String? = SharedPreferenceUtil.getData(applicationContext, "username")
         val diaryService : DiaryService = RetrofitUtil.getLoginRetrofit(applicationContext).create(DiaryService::class.java)
         val diary = Diary(editTitle.text.toString(), editContent.text.toString(), username!!)
-
         val call: Call<Response> = diaryService.writeDiary(diary)
+
         call.enqueue(object : Callback<Response>{
             override fun onFailure(call: Call<Response>?, t: Throwable?) {
                 Log.e(TAG,t.toString())

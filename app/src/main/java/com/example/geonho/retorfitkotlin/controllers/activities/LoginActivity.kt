@@ -37,15 +37,15 @@ class LoginActivity : AppCompatActivity() {
         }
 
         loginButton.setOnClickListener {
-            val user = User(usernameEditText.text.toString(), passwordEditText.text.toString())
+            val user = User(usernameEditText.text.toString().trim(), passwordEditText.text.toString().trim())
             val userService: UserService = RetrofitUtil.retrofit.create(UserService::class.java)
             val call: Call<LoginResponse> = userService.login(user)
+
             call.enqueue(object : Callback<LoginResponse> {
                 override fun onFailure(call: Call<LoginResponse>?, t: Throwable?) {
                     Log.e(TAG,t.toString())
                     Toast.makeText(applicationContext, "네트워크 에러가 발생하였습니다!", Toast.LENGTH_SHORT).show()
                 }
-
                 override fun onResponse(call: Call<LoginResponse>?, response: Response<LoginResponse>) {
                     if (response.body() != null && response.body()!!.result.success) {
                         Toast.makeText(applicationContext, "로그인에 성공하였습니다!", Toast.LENGTH_LONG).show()
